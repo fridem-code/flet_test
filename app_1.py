@@ -18,21 +18,25 @@ def app(page: ft.Page):
             e.control.elevation = 1
         e.control.update()
 
-    button = ft.ElevatedButton(
+    def go_to_second_page(e):
+        page.go("/second")
+
+    button_main_page = ft.ElevatedButton(
         text="Нажми меня",
         bgcolor=ft.Colors.BLUE_100,
         on_hover=on_hover,
+        on_click=go_to_second_page,
         animate_scale=ft.Animation(200, "easeOut"),
         animate_opacity=ft.Animation(200, "easeOut")
 
     )
 
-    body = ft.Container(
+    main_page = ft.Container(
         expand=True,
         content=ft.Column(
             [
                 ft.Text('Привет!', size=36, text_align=ft.TextAlign.CENTER),
-                button
+                button_main_page
             ],
             alignment=ft.MainAxisAlignment.CENTER,
             horizontal_alignment=ft.CrossAxisAlignment.CENTER
@@ -40,7 +44,41 @@ def app(page: ft.Page):
         alignment=ft.alignment.center
     )
 
-    page.add(body)
+    def go_back(e):
+        page.go('/')
 
+    button_second_page = ft.ElevatedButton(
+        text="Нажми меня",
+        bgcolor=ft.Colors.BLUE_100,
+        on_hover=on_hover,
+        on_click=go_back,
+        animate_scale=ft.Animation(200, "easeOut"),
+        animate_opacity=ft.Animation(200, "easeOut")
+
+    )
+
+    second_page = ft.Container(
+        expand=True,
+        content=ft.Column(
+            [
+                ft.Text('Возврат на предыдущую страницу!', size=36, text_align=ft.TextAlign.CENTER),
+                button_second_page
+            ],
+            alignment=ft.MainAxisAlignment.CENTER,
+            horizontal_alignment=ft.CrossAxisAlignment.CENTER
+        ),
+        alignment=ft.alignment.center
+    )
+
+    def route_change(route):
+        page.views.clear()
+        if page.route == "/":
+            page.views.append(ft.View(route="/", controls=[main_page]))
+        elif page.route == "/second":
+            page.views.append(ft.View(route="/second", controls=[second_page]))
+        page.update()
+
+    page.on_route_change = route_change
+    page.go("/")
 
 ft.app(app)
