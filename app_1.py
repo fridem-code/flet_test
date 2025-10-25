@@ -68,15 +68,30 @@ def app(page: ft.Page):
             horizontal_alignment=ft.CrossAxisAlignment.CENTER
         ),
         alignment=ft.alignment.center
+
     )
 
     def route_change(route):
         page.views.clear()
         if page.route == "/":
+            page.views.append(
+                ft.View(
+                    route="/",
+                    controls=[main_page]
+                )
+            )
             page.views.append(ft.View(route="/", controls=[main_page]))
         elif page.route == "/second":
+            page.views.append(
+                ft.View(
+                    route="/second",
+                    controls=[second_page]
+                )
+            )
             page.views.append(ft.View(route="/second", controls=[second_page]))
         page.update()
+
+
 
     page.on_route_change = route_change
     page.go("/")
