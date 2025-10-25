@@ -1,5 +1,5 @@
 import flet as ft
-from Components.buttons import create_button
+from Components.buttons import create_button_with_animate
 
 
 class MainPage(ft.Container):
@@ -12,7 +12,8 @@ class MainPage(ft.Container):
         self.content = ft.Column(
             [
                 ft.Text('Привет!', size=36, text_align=ft.TextAlign.CENTER),
-                create_button("Нажми меня", self.go_to_second_page)
+                create_button_with_animate("Нажми меня", self.go_to_second_page),
+
             ],
             alignment=ft.MainAxisAlignment.CENTER,
             horizontal_alignment=ft.CrossAxisAlignment.CENTER

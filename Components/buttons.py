@@ -1,7 +1,7 @@
 import flet as ft
 
 
-def create_button(text: str, on_click=None):
+def create_button_with_animate(text: str, on_click=None):
     """Фабричная функция для создания кнопки с эффектом наведения"""
 
     def on_hover(e: ft.HoverEvent):
